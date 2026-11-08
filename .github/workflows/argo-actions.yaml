@@ -14,3 +14,13 @@ jobs:
         with:
           token: ${{ secrets.GIT_PAT }}
           fetch-depth: 0
+      - name: Setup java 25
+        uses: actions/setup-java@v4
+        with: 
+          java-version: '25'
+          distribution: 'temurin'
+          architecture: x64
+          cache: 'maven'
+      - name: Build with maven
+        run: ./mvnw -B clean package       
+

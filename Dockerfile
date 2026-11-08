@@ -1,5 +1,6 @@
 #FROM quay.io/centos/centos:stream9
 #
+#hello
 #
 #RUN dnf -y update && \
 #    dnf -y install java-25-openjdk.x86_64 && \

@@ -1,8 +1,9 @@
 name: Gitops pipeline with argo cd for inventory-catalog
 on:
-  push:
-    branches:
-      - dev
+  workflow_dispatch:
+ # push:
+  #  branches:
+     # - dev
 env:
   GIT_PAT: ${{ secrets.GIT_PAT }}
   DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}

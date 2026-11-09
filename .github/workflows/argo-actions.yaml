@@ -30,5 +30,6 @@ jobs:
       - name: Login to Docker Hub account
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
       - name: Push docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKERHUB_USER }}/inventory-catalog-cicd:${{ github.sha }} 
+        run: docker push ${{ secrets.DOCKERHUB_USER }}/inventory-catalog-cicd:${{ github.sha }}
+    #hi    
 

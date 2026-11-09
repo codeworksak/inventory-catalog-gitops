@@ -31,4 +31,23 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
       - name: Push docker image to Docker Hub
         run: docker push ${{ secrets.DOCKERHUB_USER }}/inventory-catalog-cicd:${{ github.sha }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code from git hub
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GIT_PAT }}
+          fetch-depth: 0   
+      - name: Install kubectl 
+        run: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl       
+      - name: Install argocd CLI
+        run: |
+             curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+             chmod +x argocd
+             sudo mv argocd /usr/local/bin/
 

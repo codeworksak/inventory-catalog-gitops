@@ -5,6 +5,7 @@ on:
       - dev
 env:
   GIT_PAT: ${{ secrets.GIT_PAT }}
+  DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,5 +23,7 @@ jobs:
           architecture: x64
           cache: 'maven'
       - name: Build with maven
-        run: ./mvnw -B clean package       
+        run: ./mvnw -B clean package
+      - name: Build docker image
+        run: docker build -t ${{ secrets.DOCKERHUB_USER }}/inventory-catalog:${{ github.sha }} .     
 

@@ -72,7 +72,7 @@ jobs:
             git pull origin dev
 
             cat catalog-k8s-manifests/catalog-deployment.yaml            
-            sed -i "s|${{ secrets.DOCKERHUB_USER }}/inventory-catalog.*|${{ secrets.DOCKERHUB_USER }}/inventory-catalog:${{ github.sha }}|g" catalog-k8s-manifests/catalog-deployment.yaml
+            sed -i "s|${{ secrets.DOCKERHUB_USER }}/inventory-catalog-cicd.*|${{ secrets.DOCKERHUB_USER }}/inventory-catalog-cicd:${{ github.sha }}|g" catalog-k8s-manifests/catalog-deployment.yaml
             cat catalog-k8s-manifests/catalog-deployment.yaml
             
       - name: Commit and push updated deployement.yaml
@@ -90,4 +90,4 @@ jobs:
              git commit -m 'update image to inventory-catalog:${{ github.sha }}'
              git push origin dev
       - name: Refresh ArgoCd app and sync
-#       run: argocd app sync inventory-catalog
+        run: argocd app sync inventory-catalog

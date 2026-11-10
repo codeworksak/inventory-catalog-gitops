@@ -11,6 +11,7 @@ env:
   ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
   ARGOCD_USER: ${{ secrets.ARGOCD_USER }}
   ARGOCD_PASS: ${{ secrets.ARGOCD_PASS }}
+  GIT_USER: ${{ secrets.GIT_USER }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -74,18 +75,19 @@ jobs:
             sed -i "s|${{ secrets.DOCKERHUB_USER }}/inventory-catalog.*|${{ secrets.DOCKERHUB_USER }}/inventory-catalog:${{ github.sha }}|g" catalog-k8s-manifests/catalog-deployment.yaml
             cat catalog-k8s-manifests/catalog-deployment.yaml
             
-#       - name: Commit and push updated deployement.yaml
-#         run: |
-#              git config user.name "${{ secrets.GIT_USER }}"
-#              git config user.email "${{ secrets.GIT_PASS }}"
-#              git remote set-url origin https://$GIT_USER:$GIT_PAT@github.com/${{ github.repository }}.git
-# 
-#              git fetch origin
-#              git checkout dev
-#              git pull origin dev
-# 
-#              git add .
-#              git commit -m 'update image to inventory-catalog:${{ github.sha }}'
-#              git push origin dev
-#       - name: Refresh ArgoCd app and sync
-       # run: argocd app sync inventory-catalog
+      - name: Commit and push updated deployement.yaml
+        run: |
+             git config user.name "${{ secrets.GIT_USER }}"
+             git config user.email "${{ secrets.GIT_PASS }}"
+             echo https://$GIT_USER:$GIT_PAT@github.com/${{ github.repository }}.git
+             git remote set-url origin https://$GIT_USER:$GIT_PAT@github.com/${{ github.repository }}.git
+
+             git fetch origin
+             git checkout dev
+             git pull origin dev
+
+             git add .
+             git commit -m 'update image to inventory-catalog:${{ github.sha }}'
+             git push origin dev
+      - name: Refresh ArgoCd app and sync
+#       run: argocd app sync inventory-catalog

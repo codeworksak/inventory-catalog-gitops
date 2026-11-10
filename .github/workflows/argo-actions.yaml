@@ -62,4 +62,12 @@ jobs:
             --username ${{ secrets.ARGOCD_USER }} \
             --password ${{ secrets.ARGOCD_PASS }} \
             --insecure
-            
+      - name: Update catalog-deployement.yaml with newly built image
+        run: |
+            git config user.name "${{ secrets.GIT_USER }}"
+            git config user.email "${{ secrets.GIT_PASS }}"
+            git fetch origin
+            git checkout dev
+            git pull origin dev
+
+            cat catalog-k8s-manifests/catalog-deployment.yaml            

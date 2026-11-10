@@ -89,10 +89,8 @@ jobs:
              git add .
              git commit -m 'update image to inventory-catalog:${{ github.sha }}'
              git push origin dev
-<<<<<<< HEAD
+
       - name: Refresh ArgoCd app and sync
         run: argocd app sync inventory-catalog
-=======
 #      - name: Refresh ArgoCd app and sync
 #       run: argocd app sync inventory-catalog
->>>>>>> 0dd2ce5ae0f0d95485c360ea74df38a4b0ef24bd

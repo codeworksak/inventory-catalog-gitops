@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: inv-catalog-container
-          image: codeworksak/inventory-catalog:18
+          image: codeworksak/inventory-catalog-cicd:31f980e76c29ae1d6253a5debd6155651837705f
           ports:
             - containerPort: 8082

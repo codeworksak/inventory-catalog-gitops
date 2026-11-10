@@ -60,6 +60,6 @@ jobs:
             echo ${{ secrets.ARGOCD_USER }}
             argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USER }} \
-            -- password ${{ secrets.ARGOCD_PASS }} \
-            -- insecure
+            --password ${{ secrets.ARGOCD_PASS }} \
+            --insecure
             

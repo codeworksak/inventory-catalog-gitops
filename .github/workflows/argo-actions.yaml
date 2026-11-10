@@ -71,7 +71,7 @@ jobs:
             git pull origin dev
 
             cat catalog-k8s-manifests/catalog-deployment.yaml            
-            sed -i "s+${{ secrets.DOCKERHUB_USER }}/inventory-catalog.*/${{ secrets.DOCKERHUB_USER }}/inventory-catalog:${{ github.sha }}g" catalog-k8s-manifests/catalog-deployment.yaml
+            sed -i "s|${{ secrets.DOCKERHUB_USER }}/inventory-catalog.*|${{ secrets.DOCKERHUB_USER }}/inventory-catalog:${{ github.sha }}|g" catalog-k8s-manifests/catalog-deployment.yaml
             cat catalog-k8s-manifets/catalog-deployment.yaml
             
 #       - name: Commit and push updated deployement.yaml
